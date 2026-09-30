@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Module1Application implements CommandLineRunner {
     @Autowired
     private PaymentService paymentService;
-    private NotificationService notificationService;
+    final NotificationService notificationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Module1Application.class, args);
