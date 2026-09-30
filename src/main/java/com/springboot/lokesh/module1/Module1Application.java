@@ -6,21 +6,32 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 public class Module1Application implements CommandLineRunner {
     @Autowired
     private PaymentService paymentService;
-    final NotificationService notificationService;
+    //final NotificationService notificationService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Module1Application.class, args);
 	}
-    public Module1Application(NotificationService notificationService){
-        this.notificationService = notificationService;
-        notificationService.send();
-    }
+    //public Module1Application(NotificationService notificationService){
+    //    this.notificationService = notificationService;
+    //    notificationService.send();
+    //}
+    @Autowired
+    Map<String, NotificationService> notificationServiceMap= new HashMap<>();
+
     @Override
     public void run(String... args) throws Exception {
         paymentService.pay();
+
+        for(var notifcationService: notificationServiceMap.entrySet()){
+            System.out.println(notifcationService.getKey());
+            notifcationService.getValue().send();
+        }
     }
 }
